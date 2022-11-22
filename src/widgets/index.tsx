@@ -32,12 +32,40 @@ async function onActivate(plugin: ReactRNPlugin) {
   });
 
   // Show a toast notification to the user.
-  await plugin.app.toast("I'm a toast!");
+  //await plugin.app.toast("I'm a toast!");
 
   // Register a sidebar widget.
   await plugin.app.registerWidget('sample_widget', WidgetLocation.RightSidebar, {
     dimensions: { height: 'auto', width: '100%' },
   });
+  await plugin.app.registerWidget(
+    'ae-tag',
+    WidgetLocation.RightSideOfEditor,
+    {
+      dimensions: { height: "auto", width: 50 },
+      powerupFilter: "customPriorityTag",
+      //widgetTabIcon: 'https://i.imgur.com/MLaBDJw.png',
+    },
+  );
+
+  // first power up
+  await plugin.app.registerPowerup(
+    'Naext', // human-readable name
+    'customPriorityTag', // powerup code used to uniquely identify the powerup
+    'A Custom Tag that tells you how important something is', // description
+    {
+      slots: [
+        {
+          // slot code used to uniquely identify the powerup slot
+          code: 'priority',
+          // human readable slot code name
+          name: 'Priority',
+          //hidden: true
+        },
+      ],
+    },
+  );
+  
 }
 
 async function onDeactivate(_: ReactRNPlugin) {}
